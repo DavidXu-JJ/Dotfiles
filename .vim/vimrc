@@ -23,15 +23,16 @@ set cindent
 let mapleader="\<space>"
 "read !pbpaste
 "write !pbcopy
-
+"
 inoremap ' ''<ESC>i
 inoremap " ""<ESC>i
 inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap { {<CR>}<ESC>O
 inoremap } {}<ESC>i
-inoremap <silent><ESC> <ESC>:call system('im-select com.apple.keylayout.UnicodeHexInput')<CR>
-inoremap <ESC>[ <ESC>[
+inoremap <silent><C-c> <ESC>:call system('im-select com.apple.keylayout.UnicodeHexInput')<CR>
+nnoremap <silent><C-c> <ESC>:call system('im-select com.apple.keylayout.UnicodeHexInput')<CR>
+" inoremap <ESC>[ <ESC>[
 
 :command! -nargs=1 Rename let tpname = expand('%:t') | saveas <args> | edit <args> | call delete(expand(tpname))
 nmap <Leader>f :NERDTreeFocus<cr>R<c-w><c-p> " 刷新NERDTree文档列表
