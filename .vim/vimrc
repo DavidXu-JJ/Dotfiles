@@ -30,16 +30,12 @@ inoremap ( ()<ESC>i
 inoremap [ []<ESC>i
 inoremap { {<CR>}<ESC>O
 inoremap } {}<ESC>i
-" inoremap = <Space>=<Space><ESC>a
-" inoremap : :<Space><ESC>a
-" inoremap + <Space>+<Space><ESC>a
-" inoremap - <Space>-<Space><ESC>a
-" inoremap * <Space>*<Space><ESC>a
-" inoremap / <Space>/<Space><ESC>a
-" inoremap % <Space>%<Space><ESC>a
+inoremap <silent><ESC> <ESC>:call system('im-select com.apple.keylayout.UnicodeHexInput')<CR>
+inoremap <ESC>[ <ESC>[
 
 :command! -nargs=1 Rename let tpname = expand('%:t') | saveas <args> | edit <args> | call delete(expand(tpname))
 nmap <Leader>f :NERDTreeFocus<cr>R<c-w><c-p> " 刷新NERDTree文档列表
+
 
 func DeleteSpace()
 	let i = 4
@@ -70,7 +66,8 @@ endfunction
 
 nnoremap <silent> <leader>r :call ArrowBracket()<CR>A
 
-if &filetype  == 'cpp'
+
+function DefMap()
 	inoremap ! <Space>!<Space><c-r>=DeleteSpace()<CR>
 	inoremap & <Space>&<Space><c-r>=DeleteSpace()<CR>
 	inoremap ^ <Space>^<Space><c-r>=DeleteSpace()<CR>
@@ -84,33 +81,97 @@ if &filetype  == 'cpp'
 	inoremap > <Space>><Space><c-r>=DeleteSpace()<CR>
 	inoremap % <Space>%<Space><c-r>=DeleteSpace()<CR>
 	inoremap , ,<Space><ESC>a
-endif
+endfunction
 
-if &filetype  == 'python'
-	inoremap ! <Space>!<Space><c-r>=DeleteSpace()<CR>
-	inoremap + <Space>+<Space><c-r>=DeleteSpace()<CR>
-	inoremap - <Space>-<Space><c-r>=DeleteSpace()<CR>
-	inoremap * <Space>*<Space><c-r>=DeleteSpace()<CR>
-	inoremap / <Space>/<Space><c-r>=DeleteSpace()<CR>
-	inoremap = <Space>=<Space><c-r>=DeleteSpace()<CR>
-	inoremap < <Space><<Space><c-r>=DeleteSpace()<CR>
-	inoremap > <Space>><Space><c-r>=DeleteSpace()<CR>
-	inoremap % <Space>%<Space><c-r>=DeleteSpace()<CR>
-	inoremap , ,<Space><ESC>a
-endif
+function CancelMap()
+	iunmap !
+	iunmap &
+	iunmap ^
+	iunmap \|
+	iunmap +
+	iunmap -
+	iunmap *
+	iunmap /
+	iunmap =
+	iunmap <
+	iunmap >
+	iunmap %
+	iunmap ,
+endfunction
 
-if &filetype  == 'rust'
-	inoremap + <Space>+<Space><c-r>=DeleteSpace()<CR>
-	inoremap - <Space>-<Space><c-r>=DeleteSpace()<CR>
-	inoremap \| <Space>\|<Space><c-r>=DeleteSpace()<CR>
-	inoremap * <Space>*<Space><c-r>=DeleteSpace()<CR>
-	inoremap / <Space>/<Space><c-r>=DeleteSpace()<CR>
-	inoremap = <Space>=<Space><c-r>=DeleteSpace()<CR>
-	inoremap < <Space><<Space><c-r>=DeleteSpace()<CR>
-	inoremap > <Space>><Space><c-r>=DeleteSpace()<CR>
-	inoremap % <Space>%<Space><c-r>=DeleteSpace()<CR>
-	inoremap , ,<Space><ESC>a
-endif
+nnoremap <silent> <leader>d :call DefMap()<CR>
+nnoremap <silent> <leader>D	:call CancelMap()<CR>
+
+" func DeleteSpace()
+" 	let i = 4
+" 	while getline('.')[col('.') - i] == ' ' 
+" 		let i += 1
+" 	endwhile
+" 	if getline('.')[col('.') - 3] == '-' && getline('.')[col('.') - i] == '='
+" 		return "\<ESC>xhhxla"
+" 	else 
+" 		if getline('.')[col('.') - i] == '+' || getline('.')[col('.') - i] == '-' || getline('.')[col('.') - i] == '*' || getline('.')[col('.') - i] == '/' || getline('.')[col('.') - i] == '=' || getline('.')[col('.') - i] == '>' || getline('.')[col('.') - i] == '<' || getline('.')[col('.') - i] == '%'|| getline('.')[col('.') - i] == '!'|| getline('.')[col('.') - i] == '^'|| getline('.')[col('.') - i] == '|'|| getline('.')[col('.') - i] == '&'
+" 			return "\<ESC>bbheldwhela"
+" 		else
+" 			return ""
+" 		endif
+" 	endif
+" endfunc
+
+" function ArrowBracket()
+" 	while 1
+" 		let pre = col('$')
+" 		execute 's/\(<[^<>]*\)\(\s\)\([^<>]*>\)/\1\3/e'
+" 		let now = col('$')
+" 		if pre == now
+" 			break
+" 		endif
+" 	endwhile
+" endfunction
+
+" nnoremap <silent> <leader>r :call ArrowBracket()<CR>A
+
+" if &filetype  == 'cpp'
+" 	inoremap ! <Space>!<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap & <Space>&<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap ^ <Space>^<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap \| <Space>\|<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap + <Space>+<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap - <Space>-<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap * <Space>*<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap / <Space>/<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap = <Space>=<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap < <Space><<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap > <Space>><Space><c-r>=DeleteSpace()<CR>
+" 	inoremap % <Space>%<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap , ,<Space><ESC>a
+" endif
+
+" if &filetype  == 'python'
+" 	inoremap ! <Space>!<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap + <Space>+<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap - <Space>-<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap * <Space>*<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap / <Space>/<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap = <Space>=<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap < <Space><<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap > <Space>><Space><c-r>=DeleteSpace()<CR>
+" 	inoremap % <Space>%<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap , ,<Space><ESC>a
+" endif
+
+" if &filetype  == 'rust'
+" 	inoremap + <Space>+<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap - <Space>-<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap \| <Space>\|<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap * <Space>*<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap / <Space>/<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap = <Space>=<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap < <Space><<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap > <Space>><Space><c-r>=DeleteSpace()<CR>
+" 	inoremap % <Space>%<Space><c-r>=DeleteSpace()<CR>
+" 	inoremap , ,<Space><ESC>a
+" endif
 
 
 
@@ -165,6 +226,7 @@ Plug 'tpope/vim-surround'
 " ysiw]
 
 Plug 'lervag/vimtex'
+" Plug 'vim-latex/vim-latex'
 Plug 'mg984/vim-visual-multi'
 " Ctrl-N
 
@@ -175,6 +237,15 @@ Plug '~/.fzf'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 call plug#end()
+
+let g:tex_flavor = 'latex'
+let g:vimtex_compiler_latexmk_engines={'_':'-xelatex'}
+let g:vimtex_compiler_latexrun_engines={'_':'xelatex'}
+let g:vimtex_view_general_viewer='zathura'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=1
+set conceallevel=1
+let g:tex_conceal= 'abdmg'
 
 execute pathogen#infect()
 let g:syntastic_always_populate_loc_list = 1
