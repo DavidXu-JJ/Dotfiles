@@ -68,7 +68,7 @@ nnoremap <silent> <leader>r :call ArrowBracket()<CR>A
 
 
 function DefMap()
-	inoremap ! <Space>!<Space><c-r>=DeleteSpace()<CR>
+	inoremap ! <Space>!<c-r>=DeleteSpace()<CR>
 	inoremap & <Space>&<Space><c-r>=DeleteSpace()<CR>
 	inoremap ^ <Space>^<Space><c-r>=DeleteSpace()<CR>
 	inoremap \| <Space>\|<Space><c-r>=DeleteSpace()<CR>
