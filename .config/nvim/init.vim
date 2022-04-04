@@ -119,8 +119,8 @@ inoremap <BS> <c-r>=DeleteBoth()<CR>
 
 "把":g/^\s*\$/d"这个命令换成":DBL"这个容易被(Delete Blank Lines)
 "记住的命令,这个命令的作用是删除文档中所有空白行
-":command -nargs=0 DBL g/^\s*$/d
-:command -range=% DBL :<line1>,<line2>g/^\s*$/d
+:command -nargs=0 DBL g/^\s*$/d
+" :command -range=% DBL :<line1>,<line2>g/^\s*$/d
 
 "以下命令将文中所有的字符串idiots替换成managers：
 ":1,$s/idiots/manages/g
@@ -144,6 +144,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 nnoremap <silent> <leader><space> :FZF<CR>
