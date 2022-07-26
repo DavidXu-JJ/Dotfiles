@@ -17,6 +17,7 @@ ZSH_THEME="ys"
 # ZSH_THEME="dracula"
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # 设置左边显示的内容
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir dir_writable vcs) # <= left prompt 设了 "dir" 即文件、进入有写入权限的文件夹则提示、vcs
@@ -139,6 +140,7 @@ export PATH="/Users/davidxu/cf_v1.0.0_darwin_64:$PATH"
 export PATH="/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 export PATH="/usr/local/include:$PATH"
+export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 source /Users/davidxu/.config/broot/launcher/bash/br
 
@@ -147,3 +149,11 @@ source /Users/davidxu/.config/broot/launcher/bash/br
 export EDITOR=vim
 
 alias fzf="fzf --preview 'cat {}'"
+
+alias 'clangmp'="clang -Xpreprocessor -fopenmp -I/usr/local/include -L/usr/local/lib -lomp"
+alias 'clang++mp'="clang++ -Xpreprocessor -fopenmp -I/usr/local/include -L/usr/local/lib -lomp"
+
+myfind()
+{
+	grep -r -l $1 ./
+}
